@@ -13,17 +13,22 @@ def main():
     coleman_liau(text)
 
 
+# Function to calculate the Coleman-Liau index
 def coleman_liau(text):
+    # Calculate the number of letters, words, and sentences
     letters = get_letters(text)
     words = get_words(text)
     sentences = get_sentences(text)
 
+    # Calculate the average number of letters and sentences per 100 words
     average_letters = letters / words * 100
     average_sentences = sentences / words * 100
 
+    # Calculate the Coleman-liau index
     calculator = 0.0588 * average_letters - 0.296 * average_sentences - 15.8
     rounded_result = round(calculator)
 
+    # Determine the grade level based on the index
     if rounded_result >= 16:
         print("Grade 16+")
     elif rounded_result < 1:
@@ -41,6 +46,7 @@ def get_input():
     return user_input
 
 
+# Function to count the number of letters in the text
 def get_letters(text):
     # Transform every letter in lowercase
     text_lowercase = text.lower()
@@ -60,6 +66,7 @@ def get_letters(text):
     return letters_count
 
 
+# Function to count the number of words in the text
 def get_words(text):
     """
 
@@ -89,6 +96,7 @@ def get_words(text):
     return count
 
 
+# Function to count the number of sentences in the text
 def get_sentences(text):
     # Initialize the number of the sentences to 0
     sentence_count = 0
@@ -104,6 +112,7 @@ def get_sentences(text):
     print(sentence_count)
     return sentence_count
 
+# ...
 
 if __name__ == "__main__":
     main()
