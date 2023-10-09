@@ -1,0 +1,109 @@
+# The Coleman-Liau index is computed as 0.0588 * L - 0.296 * S - 15.8, where L is the average number of letters per 100 words in the text, and S is the average number of sentences per 100 words
+# in the text.
+# Import string to add a list with the alphabet
+import string
+
+
+def main():
+    text = get_input()
+    get_letters(text)
+    get_words(text)
+    get_sentences(text)
+
+    coleman_liau(text)
+
+
+def coleman_liau(text):
+    letters = get_letters(text)
+    words = get_words(text)
+    sentences = get_sentences(text)
+
+    average_letters = letters / words * 100
+    average_sentences = sentences / words * 100
+
+    calculator = 0.0588 * average_letters - 0.296 * average_sentences - 15.8
+    rounded_result = round(calculator)
+
+    if rounded_result >= 16:
+        print("Grade 16+")
+    elif rounded_result < 1:
+        print("Before Grade 1")
+    else:
+        print(f"Grade {rounded_result}")
+
+
+def get_input():
+    # Ask the user to input some text
+    user_input = input(
+        "Type in your text and you'll get back the grade level of readability for it\n"
+    )
+    # Return it
+    return user_input
+
+
+def get_letters(text):
+    # Transform every letter in lowercase
+    text_lowercase = text.lower()
+
+    # Create a variable with alphabet letters
+    alphabet = string.ascii_lowercase
+
+    # Create a variable to count every letter
+    letters_count = 0
+
+    # For every character letter found in the text
+    for letter in text_lowercase:
+        # If the character is a letter than add one
+        if letter in alphabet:
+            letters_count += 1
+
+    return letters_count
+
+
+def get_words(text):
+    """
+
+    # This is the way I thought of solving it.
+
+    # Create a variable to count every word
+    words_count = 0
+
+    # Create a variable with the punctuation marks
+    words_endings = string.punctuation
+
+    # For every punctuation marks or space found as a character, count 1
+    for character in text:
+        if character == words_endings or character == " ":
+            words_count += 1
+
+    return words_count
+
+    """
+
+    # The easier and more correctly way to count the words
+    # Split the text in words
+    words = text.split()
+    # Then count them using len()
+    count = len(words)
+
+    return count
+
+
+def get_sentences(text):
+    # Initialize the number of the sentences to 0
+    sentence_count = 0
+    # List of punctuation marks that indicate the end of sentences
+    sentence_endings = [".", "!", "?"]
+
+    # Iterate through each character in the text
+    for character in text:
+        if character in sentence_endings:
+            # If we encounter a character that marks the end of a sentence, increment the sentence count
+            sentence_count += 1
+
+    print(sentence_count)
+    return sentence_count
+
+
+if __name__ == "__main__":
+    main()
